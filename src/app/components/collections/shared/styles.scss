@@ -1,0 +1,46 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.key-value {
+  display: flex;
+  margin-bottom: 5px;
+
+  * {
+    margin-right: 10px;
+  }
+}
+
+.removal-confirmation {
+  width: 80%;
+  position: relative;
+  margin: 50% auto 0;
+  transform: translateY(-50%);
+
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    padding: 1px 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .remove {
+    color: white;
+    background-color: red;
+    border-color: red;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <app-display (addNewDocument)="openModal()">
+    <div class="job-description" *ngFor="let jobDescription of workExperience; let i = index">
+      <div class="key-value">
+        <p class="label">Company:</p>
+        <p>{{ jobDescription.company }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Role:</p>
+        <p>{{ jobDescription.role }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Duration:</p>
+        <p>{{ jobDescription.duration }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Summary:</p>
+        <p>{{ jobDescription.summary }}</p>
+      </div>
+      <div class="key-value tasks-container">
+        <p class="label">Tasks</p>
+        <div class="tasks">
+          <ul class="task" *ngFor="let task of jobDescription.tasks">
+            <li>{{ task }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="button-group">
+        <button class="edit" (click)="editExistingExperience(i)">Edit</button>
+        <button class="remove" (click)="onCrossClick(jobDescription._id)">X</button>
+      </div>
+    </div>
+  </app-display>
+  <app-modal *ngIf="isAddingNewExperience" (modalClose)="closeModal()">
+    <app-experience-form
+      (closeForm)="closeModal()"
+      [isEdit]="isEditingExistingExperience"
+      [experience]="experienceUnderEdit"
+    ></app-experience-form>
+  </app-modal>
+  <app-modal *ngIf="experienceBeingRemoved" (modalClose)="denyExperienceRemoval()">
+    <div class="removal-confirmation">
+      <p>Are you sure you want to remove the selected experience?</p>
+      <div class="button-group">
+        <button (click)="denyExperienceRemoval()">No</button>
+        <button (click)="confirmRemoveExperience()">Yes</button>
+      </div>
+    </div>
+  </app-modal>
+</div>

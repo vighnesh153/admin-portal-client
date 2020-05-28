@@ -1,0 +1,77 @@
+<form class="form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+  <div class="group">
+    <div class="label">
+      <label for="company">Company</label>
+    </div>
+    <input
+      type="text"
+      id="company"
+      formControlName="company"
+      placeholder="Enter company name"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="role">Role</label>
+    </div>
+    <input
+      type="text"
+      id="role"
+      formControlName="role"
+      placeholder="Enter role"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="duration">Duration</label>
+    </div>
+    <input
+      type="text"
+      id="duration"
+      formControlName="duration"
+      placeholder="Enter duration"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="summary">Summary</label>
+    </div>
+    <textarea
+      type="text"
+      id="summary"
+      formControlName="summary"
+      placeholder="Enter summary"
+      (keyup)="autoResizeTextarea($event)"
+    ></textarea>
+  </div>
+
+  <div class="array" formArrayName="tasks">
+    <div class="label">
+      Tasks
+    </div>
+    <div class="array-item" *ngFor="let task of tasksRef.controls; let i = index">
+      <label>
+        <textarea
+          type="text"
+          [formControlName]="i"
+          [placeholder]="'Task ' + (i + 1)"
+          (keyup)="autoResizeTextarea($event)"
+        ></textarea>
+      </label>
+      <button class="remove-array-item" (click)="onRemoveTask(i)">X</button>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <div class="left">
+      <button (click)="onCloseForm()" type="button"
+              [disabled]="isFormInSubmitState">Cancel</button>
+    </div>
+    <div class="right">
+      <button (click)="onAddTask()" type="button"
+              [disabled]="isFormInSubmitState">Add Task</button>
+      <button type="submit"
+              [disabled]="isFormInSubmitState">Submit</button>
+    </div>
+  </div>
+</form>

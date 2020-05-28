@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "admin-portal-client"
+    }
+  },
+  "defaultProject": "admin-portal-client",
+  "cli": {
+    "analytics": false
+  }
 }

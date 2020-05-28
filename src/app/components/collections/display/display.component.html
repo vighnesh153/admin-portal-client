@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="header">
+    <div class="content">
+      <button class="btn-back" routerLink="/home">Back</button>
+    </div>
+  </div>
+  <div class="body">
+    <ng-content></ng-content>
+  </div>
+  <div class="footer">
+    <div class="content">
+      <app-styled-button
+        class="add-new"
+        text="Add New"
+        (click)="onAddButtonClick()"
+      ></app-styled-button>
+    </div>
+  </div>
+</div>

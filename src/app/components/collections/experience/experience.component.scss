@@ -1,0 +1,17 @@
+.job-description {
+  margin-bottom: 2px;
+  padding: 10px;
+  border: 1px solid purple;
+}
+
+.tasks-container {
+  align-items: center;
+
+  * {
+    margin-right: 50px;
+  }
+
+  .task li {
+    list-style: disc;
+  }
+}
