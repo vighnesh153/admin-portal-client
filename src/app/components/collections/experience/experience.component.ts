@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Experience } from 'src/app/models/experience';
 import { environment } from 'src/environments/environment';
@@ -63,17 +62,8 @@ export class ExperienceComponent implements OnInit {
 
   workExperience: Experience[] = [];
 
-  newExperienceAddition: FormGroup;
-
   constructor(private http: HttpClient,
               private toastService: ToastService) {
-    this.newExperienceAddition = new FormGroup({
-      company: new FormControl(null, Validators.required),
-      role: new FormControl(null, Validators.required),
-      duration: new FormControl(null, Validators.required),
-      summary: new FormControl(null, Validators.required),
-      tasks: new FormArray([], Validators.required),
-    });
   }
 
   ngOnInit(): void {
@@ -116,6 +106,7 @@ export class ExperienceComponent implements OnInit {
     })
       .subscribe((response: { message: string }) => {
         this.toastService.broadcast(response.message, 'SUCCESS');
+        this.fetchExperience();
       }, error => {
         this.toastService.broadcast(error.error.message, 'ERROR');
       }, () => {

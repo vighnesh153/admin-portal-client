@@ -1,0 +1,21 @@
+.array {
+
+  .array-item {
+    padding: 10px 0 0;
+    margin-bottom: 5px;
+    border: 1px solid black;
+  }
+
+  .text-fields {
+    width: 80%;
+
+    input,
+    textarea {
+      width: 100%;
+    }
+  }
+}
+
+.array.no-border {
+  border: none;
+}

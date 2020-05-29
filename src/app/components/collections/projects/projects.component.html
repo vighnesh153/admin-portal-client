@@ -1,3 +1,65 @@
 <div class="container">
-  Projects Component
+  <app-display (addNewDocument)="openModal()">
+    <div class="project-description" *ngFor="let project of projects; let i = index">
+      <div class="key-value">
+        <p class="label">Client ID:</p>
+        <p>{{ project.clientId }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Title:</p>
+        <p>{{ project.title }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Route Link:</p>
+        <p>{{ project.routeLink }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Is Link Absolute:</p>
+        <p>{{ project.isLinkAbsolute }}</p>
+      </div>
+      <div class="key-value">
+        <p class="label">Description:</p>
+        <p>{{ project.description }}</p>
+      </div>
+      <div class="key-value tasks-container">
+        <p class="label">Items</p>
+        <div class="items">
+          <div class="item" *ngFor="let subProject of project.items">
+            <div class="key-value">
+              <p class="label">Title:</p>
+              <p>{{ subProject.title }}</p>
+            </div>
+            <div class="key-value">
+              <p class="label">Description:</p>
+              <p>{{ subProject.description }}</p>
+            </div>
+            <div class="key-value">
+              <p class="label">Link:</p>
+              <p>{{ subProject.link }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button class="edit" (click)="editExistingProject(i)">Edit</button>
+        <button class="remove" (click)="onCrossClick(project._id)">X</button>
+      </div>
+    </div>
+  </app-display>
+  <app-modal *ngIf="isAddingNewProject" (modalClose)="closeModal()">
+    <app-projects-form
+      (closeForm)="closeModal()"
+      [isEdit]="isEditingExistingProject"
+      [project]="projectUnderEdit"
+    ></app-projects-form>
+  </app-modal>
+  <app-modal *ngIf="projectBeingRemoved" (modalClose)="denyProjectRemoval()">
+    <div class="removal-confirmation">
+      <p>Are you sure you want to remove the selected experience?</p>
+      <div class="button-group">
+        <button (click)="denyProjectRemoval()">No</button>
+        <button (click)="confirmRemoveProject()">Yes</button>
+      </div>
+    </div>
+  </app-modal>
 </div>

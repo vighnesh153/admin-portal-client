@@ -17,6 +17,7 @@ import { ExperienceFormComponent } from './components/collections/experience/exp
 
 import { AuthInterceptor } from 'src/app/services/auth.interceptor';
 import { AuthComponent } from './components/auth/auth.component';
+import { ProjectsFormComponent } from './components/collections/projects/projects-form/projects-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AuthComponent } from './components/auth/auth.component';
     ModalComponent,
     ToastComponent,
     ExperienceFormComponent,
-    AuthComponent
+    AuthComponent,
+    ProjectsFormComponent
   ],
   imports: [
     BrowserModule,

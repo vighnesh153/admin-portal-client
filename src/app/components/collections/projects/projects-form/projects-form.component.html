@@ -1,0 +1,108 @@
+<form class="form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+  <div class="group">
+    <div class="label">
+      <label for="client-id">Client ID</label>
+    </div>
+    <input
+      type="text"
+      id="client-id"
+      formControlName="clientId"
+      placeholder="Enter client ID"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="title">Title</label>
+    </div>
+    <input
+      type="text"
+      id="title"
+      formControlName="title"
+      placeholder="Enter title"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="route-link">Route Link</label>
+    </div>
+    <input
+      type="text"
+      id="route-link"
+      formControlName="routeLink"
+      placeholder="Enter route link"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="is-link-absolute">Is Link Absolute</label>
+    </div>
+    <input
+      type="checkbox"
+      id="is-link-absolute"
+      formControlName="isLinkAbsolute"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
+      <label for="description">Description</label>
+    </div>
+    <textarea
+      type="text"
+      id="description"
+      formControlName="description"
+      placeholder="Enter description"
+      (keyup)="autoResizeTextarea($event)"
+    ></textarea>
+  </div>
+
+  <div class="array no-border" formArrayName="items">
+    <div class="label">
+      Items
+    </div>
+    <div class="array-item"
+         *ngFor="let item of itemsRef.controls; let i = index"
+         [formGroupName]="i"
+    >
+      <div class="text-fields">
+        <label>
+          <input
+            type="text"
+            formControlName="title"
+            [placeholder]="'Title ' + (i + 1)"
+          >
+        </label>
+        <label>
+        <textarea
+          formControlName="description"
+          [placeholder]="'Description ' + (i + 1)"
+          (keyup)="autoResizeTextarea($event)"
+        ></textarea>
+        </label>
+        <label>
+          <input
+            type="text"
+            formControlName="link"
+            [placeholder]="'Link ' + (i + 1)"
+          >
+        </label>
+      </div>
+      <button class="remove-array-item" (click)="onRemoveProject(i)">X</button>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <div class="left">
+      <button (click)="onCloseForm()" type="button"
+              [disabled]="isFormInSubmitState">Cancel
+      </button>
+    </div>
+    <div class="right">
+      <button (click)="onAddProject()" type="button"
+              [disabled]="isFormInSubmitState">Add Task
+      </button>
+      <button type="submit"
+              [disabled]="isFormInSubmitState">Submit
+      </button>
+    </div>
+  </div>
+</form>
