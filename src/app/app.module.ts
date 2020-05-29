@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
@@ -15,6 +15,9 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { ToastComponent } from './shared/toast/toast.component';
 import { ExperienceFormComponent } from './components/collections/experience/experience-form/experience-form.component';
 
+import { AuthInterceptor } from 'src/app/services/auth.interceptor';
+import { AuthComponent } from './components/auth/auth.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,15 +28,23 @@ import { ExperienceFormComponent } from './components/collections/experience/exp
     StyledButtonComponent,
     ModalComponent,
     ToastComponent,
-    ExperienceFormComponent
+    ExperienceFormComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

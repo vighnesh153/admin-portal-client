@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Experience } from 'src/app/models/experience';
@@ -59,6 +59,8 @@ export class ExperienceComponent implements OnInit {
   isRemovingExperience = false;
   experienceBeingRemoved: string = null;
 
+  confirmationButtonsDisabled = false;
+
   workExperience: Experience[] = [];
 
   newExperienceAddition: FormGroup;
@@ -75,16 +77,15 @@ export class ExperienceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO: Remove the if else. Else block is always needed
-    if (environment.production === false) {
-      this.workExperience = DUMMY_WORK_EXPERIENCE;
-    } else {
-      const url = environment.serverUrl + 'experience/get';
-      this.http.get(url)
-        .subscribe((response: { content: Experience[] }) => {
-          this.workExperience = response.content;
-        });
-    }
+    this.fetchExperience();
+  }
+
+  fetchExperience() {
+    const url = environment.serverUrl + 'experience/get';
+    this.http.get(url)
+      .subscribe((response: { content: Experience[] }) => {
+        this.workExperience = response.content;
+      });
   }
 
   editExistingExperience(index: number) {
@@ -98,9 +99,30 @@ export class ExperienceComponent implements OnInit {
     this.experienceBeingRemoved = id;
   }
 
+  denyExperienceRemoval() {
+    this.isRemovingExperience = false;
+    this.experienceBeingRemoved = null;
+  }
+
   confirmRemoveExperience() {
-    // TODO
-    throw new Error('Not implemented!');
+    if (this.confirmationButtonsDisabled) {
+      return;
+    }
+    this.confirmationButtonsDisabled = true;
+
+    const url = environment.serverUrl + 'experience/remove';
+    this.http.post(url, {
+      entryId: this.experienceBeingRemoved
+    })
+      .subscribe((response: { message: string }) => {
+        this.toastService.broadcast(response.message, 'SUCCESS');
+      }, error => {
+        this.toastService.broadcast(error.error.message, 'ERROR');
+      }, () => {
+        this.confirmationButtonsDisabled = false;
+        this.isRemovingExperience = false;
+        this.experienceBeingRemoved = null;
+      });
   }
 
   openModal() {
@@ -108,14 +130,10 @@ export class ExperienceComponent implements OnInit {
   }
 
   closeModal() {
+    this.fetchExperience();
     this.isAddingNewExperience = false;
     this.isEditingExistingExperience = false;
     this.experienceUnderEdit = null;
-  }
-
-  denyExperienceRemoval() {
-    this.isRemovingExperience = false;
-    this.experienceBeingRemoved = null;
   }
 
 }
