@@ -4,5 +4,6 @@ export interface Experience {
   duration: string;
   summary: string;
   tasks: string[];
+  rank: number;
   _id: string;
 }

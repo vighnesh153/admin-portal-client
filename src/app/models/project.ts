@@ -1,5 +1,6 @@
 export interface Project {
   _id: string;
+  rank: number;
   clientId: string;
   title: string;
   routeLink: string;

@@ -33,6 +33,10 @@ export class ProjectsFormComponent implements OnInit {
     const { isEdit, project } = this;
 
     this.formGroup = new FormGroup({
+      rank: new FormControl(
+        isEdit ? project.rank : null,
+        Validators.required
+      ),
       clientId: new FormControl(
         isEdit ? project.clientId : null,
         Validators.required
@@ -120,6 +124,7 @@ export class ProjectsFormComponent implements OnInit {
       isLinkAbsolute: !!this.formGroup.get('isLinkAbsolute').value,
       description: this.formGroup.get('description').value,
       items: [],
+      rank: this.formGroup.get('rank').value,
       _id: 'Some Id'
     };
 

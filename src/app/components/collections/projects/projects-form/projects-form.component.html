@@ -1,6 +1,17 @@
 <form class="form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
   <div class="group">
     <div class="label">
+      <label for="rank">Array Index</label>
+    </div>
+    <input
+      type="text"
+      id="rank"
+      formControlName="rank"
+      placeholder="Enter array index"
+    >
+  </div>
+  <div class="group">
+    <div class="label">
       <label for="client-id">Client ID</label>
     </div>
     <input

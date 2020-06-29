@@ -32,6 +32,10 @@ export class ExperienceFormComponent implements OnInit {
     const { isEdit, experience } = this;
 
     this.formGroup = new FormGroup({
+      rank: new FormControl(
+        isEdit ? experience.rank : null,
+        Validators.required
+      ),
       company: new FormControl(
         isEdit ? experience.company : null,
         Validators.required
@@ -108,6 +112,7 @@ export class ExperienceFormComponent implements OnInit {
       duration: this.formGroup.get('duration').value,
       summary: this.formGroup.get('summary').value,
       tasks: [],
+      rank: this.formGroup.get('rank').value,
       _id: 'Some Id'
     };
 
